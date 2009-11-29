@@ -2,7 +2,7 @@ package Task::Plack;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 use ExtUtils::MakeMaker;
 
 use base qw(Exporter);
@@ -32,8 +32,11 @@ sub dependencies {
             [ undef, 'evpsgi', 'git://github.com/sekimura/evpsgi.git' ],
             [ undef, 'nginx', 'git://github.com/yappo/nginx-psgi-patchs.git' ],
         ],
-        'Extra Plack middleware componenshts', sub { 0 }, [
+        'Middleware Components', sub { 0 }, [
             [ 'Plack::Middleware::JSConcat', 'git://github.com/clkao/Plack-Middleware-JSConcat.git' ],
+            [ undef, 'Plack::Middleware::Rewrite', 'git://github.com/snark/Plack-Middleware-Rewrite.git' ],
+            [ undef, 'Plack::Middleware::MobileDetector', 'git://github.com/snark/Plack-Middleware-MobileDetector.git' ],
+            [ 'Plack::Middleware::Deflater', 'git://github.com/miyagawa/Plack-Middleware-Deflater.git' ],
         ],
         'Catalyst Engine', sub { has_module('Catalyst') }, [
             [ 'Catalyst::Engine::PSGI', 'git://github.com/miyagawa/Catalyst-Engine-PSGI.git' ],
