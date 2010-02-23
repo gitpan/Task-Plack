@@ -2,7 +2,7 @@ package Task::Plack;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 use ExtUtils::MakeMaker;
 
 use base qw(Exporter);
@@ -13,20 +13,22 @@ sub dependencies {
         'Core and Essential Tools', 1, [
             [ 'PSGI',  'git://github.com/miyagawa/psgi-specs.git' ],
             [ 'Plack', 'git://github.com/miyagawa/Plack.git' ],
-            [ 'Plack::Request', 'git://github.com/miyagawa/Plack-Request.git' ],
             [ 'CGI::PSGI', 'git://github.com/miyagawa/CGI-PSGI.git' ],
             [ 'CGI::Emulate::PSGI', 'git://github.com/tokuhirom/p5-cgi-emulate-psgi.git' ],
             [ 'CGI::Compile', 'git://github.com/miyagawa/CGI-Compile.git' ],
         ],
-        'Extra Plack Servers', 0, [
-            [ 'Plack::Server::ServerSimple', 'git://github.com/miyagawa/Plack-Server-ServerSimple.git' ],
-            [ 'Plack::Server::AnyEvent', 'git://github.com/miyagawa/Plack-Server-AnyEvent.git' ],
+        'Extra PSGI Servers and Plack handlers', 0, [
+            [ 'HTTP::Server::Simple::PSGI', 'git://github.com/miyagawa/HTTP-Server-Simple-PSGI.git' ],
+            [ 'Starman', 'git://github.com/miyagawa/Starman.git' ],
+            [ 'Twiggy', 'git://github.com/miyagawa/Twiggy.git' ],
             [ 'Plack::Server::Coro', 'git://github.com/miyagawa/Plack-Server-Coro.git' ],
-            [ 'Plack::Server::POE', 'git://github.com/frodwith/Plack-Server-POE.git' ],
-            [ 'Plack::Server::ReverseHTTP', 'git://github.com/miyagawa/Plack-Server-ReverseHTTP.git' ],
-            [ 'Plack::Server::Standalone::Prefork::Server::Starter', 'git://github.com/kazuho/p5-Plack-Server-Standalone-Prefork-Server-Starter.git' ],
+            [ 'POE::Component::Server::PSGI', 'git://github.com/frodwith/Plack-Server-POE.git' ],
+            [ 'Plack::Handler::AnyEvent::ReverseHTTP', 'git://github.com/miyagawa/Plack-Handler-AnyEvent-ReverseHTTP.git' ],
+            [ 'Plack::Handler::SCGI', 'git://github.com/miyagawa/Plack-Handler-SCGI.git' ],
+            [ 'Plack::Handler::AnyEvent::HTTPD', 'git://github.com/miyagawa/Plack-Handler-AnyEvent-HTTPD.git' ],
         ],
         'In-Development PSGI Servers', 0, [
+            [ undef, 'Plack::Handler::AnyEvent::SCGI', 'git://github.com/miyagawa/Plack-Handler-AnyEvent-SCGI.git' ],
             [ undef, 'Plack::Server::Danga::Socket', 'git://github.com/typester/Plack-Server-Danga-Socket.git' ],
             [ undef, 'Plack::Server::FCGI::EV', 'git://github.com/mala/Plack-Server-FCGI-EV.git' ],
             [ undef, 'Perlbal::Plugin::PSGI', 'git://github.com/miyagawa/Perlbal-Plugin-PSGI.git' ],
@@ -46,6 +48,9 @@ sub dependencies {
             [ 'Plack::Middleware::Auth::Digest', 'git://github.com/miyagawa/Plack-Middleware-Auth-Digest.git' ],
             [ 'Plack::App::Proxy', 'git://github.com/leedo/Plack-App-Proxy.git' ],
             [ 'Plack::Middleware::ReverseProxy', 'git://github.com/lopnor/Plack-Middleware-ReverseProxy.git' ],
+            [ 'Plack::Middleware::File::Sass', 'git://github.com/miyagawa/Plack-Middleware-File-Sass.git' ],
+            [ undef, 'Plack::Middleware::ForgeryProtection', 'git://github.com/jyotty/Plack-Middleware-ForgeryProtection.git' ],
+            [ undef, 'Plack::Middleware::ConsoleLogger', 'git://github.com/miyagawa/Plack-Middleware-ConsoleLogger.git' ],
         ],
         'Tools', 0, [
             [ 'Test::WWW::Mechanize::PSGI', 'git://github.com/acme/test-www-mechanize-psgi.git' ],
@@ -89,7 +94,6 @@ sub makefile_pl {
     my $class = shift;
     my $fh = shift;
 
-    require CPAN;
     $class->iter_deps(sub {
         my($name, $cond, $deps) = @_;
         my @modules = grep defined, map $_->[0], @$deps;
@@ -102,10 +106,11 @@ sub makefile_pl {
 }
 
 sub version_for {
-    my $name = shift;
+    my $dist = shift;
 
-    my $module = CPAN::Shell->expand(Module => $name) or return;
-    return $module->cpan_version;
+    (my $module = $dist) =~ s/-/::/g;
+    my $info = `cpanm --info $module ` or return;
+    return ($info =~ /-([\d\.]+)\.tar\.gz/)[0];
 }
 
 sub git_clone {
