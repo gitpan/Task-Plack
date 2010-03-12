@@ -2,7 +2,7 @@ package Task::Plack;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 use ExtUtils::MakeMaker;
 
 use base qw(Exporter);
@@ -21,7 +21,7 @@ sub dependencies {
             [ 'HTTP::Server::Simple::PSGI', 'git://github.com/miyagawa/HTTP-Server-Simple-PSGI.git' ],
             [ 'Starman', 'git://github.com/miyagawa/Starman.git' ],
             [ 'Twiggy', 'git://github.com/miyagawa/Twiggy.git' ],
-            [ 'Plack::Server::Coro', 'git://github.com/miyagawa/Plack-Server-Coro.git' ],
+            [ 'Corona', 'git://github.com/miyagawa/Corona.git' ],
             [ 'POE::Component::Server::PSGI', 'git://github.com/frodwith/Plack-Server-POE.git' ],
             [ 'Plack::Handler::AnyEvent::ReverseHTTP', 'git://github.com/miyagawa/Plack-Handler-AnyEvent-ReverseHTTP.git' ],
             [ 'Plack::Handler::SCGI', 'git://github.com/miyagawa/Plack-Handler-SCGI.git' ],
