@@ -23,4 +23,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/miyagawa/Task-Plack.git
-version: 0.20
+version: 0.21
