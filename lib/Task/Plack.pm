@@ -2,7 +2,7 @@ package Task::Plack;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 use ExtUtils::MakeMaker;
 
 use base qw(Exporter);
@@ -18,6 +18,9 @@ sub dependencies {
         ],
         'Stacktrace with lexical variables', 0, [
             [ 'Devel::StackTrace::WithLexicals' ],
+        ],
+        'Utility to create IO::Handle-ish objects', 1, [
+            [ 'IO::Handle::Util' ],
         ],
         'Core and Essential Tools', 1, [
             [ 'PSGI',  'git://github.com/miyagawa/psgi-specs.git' ],
@@ -114,7 +117,7 @@ sub makefile_pl {
         my @modules = grep defined, map $_->[0], @$deps;
         $fh->print("feature '$name', -default => $cond,\n");
         for my $module (@modules) {
-            $fh->print("  '$module', ", version_for($module), ",\n");
+            $fh->print("  '$module', '", version_for($module), "',\n");
         }
         $fh->print(";\n");
     });
@@ -166,7 +169,7 @@ Task::Plack - Plack bundle
 
 =head1 SYNOPSIS
 
-  cpan> install Task::Plack
+  cpanm --interactive Task::Plack
 
   # clone development git for all of those modules (You'll be prompted)
   > perl -MTask::Plack -e 'git_clone'
