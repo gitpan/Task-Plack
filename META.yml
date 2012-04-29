@@ -3,11 +3,12 @@ abstract: 'Plack bundle'
 author:
   - 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 distribution_type: module
-generated_by: 'Module::Install version 1.00'
+dynamic_config: 1
+generated_by: 'Module::Install version 1.06'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,35 +20,48 @@ no_index:
     - t
     - xt
 requires:
-  CGI::Compile: 0.12
-  CGI::Emulate::PSGI: 0.10
-  CGI::PSGI: 0.11
-  Catalyst::Engine::PSGI: 0.11
+  CGI::Application::PSGI: 1.00
+  CGI::Compile: 0.15
+  CGI::Emulate::PSGI: 0.14
+  CGI::PSGI: 0.15
+  Catalyst::Engine::PSGI: 0.13
   Corona: 0.1004
-  Devel::StackTrace::WithLexicals: 0.06
-  FCGI: 0.71
-  FCGI::Client: 0.04
-  FCGI::ProcManager: 0.19
-  Flea: 0.02
+  Devel::StackTrace::WithLexicals: 0.10
+  FCGI: 0.74
+  FCGI::Client: 0.08
+  FCGI::ProcManager: 0.24
+  Flea: 0.04
   HTTP::Server::Simple::PSGI: 0.14
   IO::Handle::Util: 0.01
-  Net::FastCGI: 0.12
+  Net::FastCGI: 0.13
+  POE::Component::Server::PSGI: 0.6
   PSGI: 1.03
-  Plack: 0.9945
-  Plack::App::Proxy: 0.15
+  Perlbal::Plugin::PSGI: 0.03
+  Plack: 0.9985
+  Plack::App::Proxy: 0.21
+  Plack::Handler::AnyEvent::HTTPD: 0.01
   Plack::Handler::AnyEvent::ReverseHTTP: 0.04
-  Plack::Middleware::Auth::Digest: 0.03
-  Plack::Middleware::ConsoleLogger: 0.02
-  Plack::Middleware::Debug: 0.09
-  Plack::Middleware::Deflater: 0.03
-  Plack::Middleware::Header: 0.03
-  Plack::Middleware::ReverseProxy: 0.06
-  Plack::Middleware::Session: 0.12
-  Starlet: 0.10
-  Starman: 0.2006
-  Twiggy: 0.1006
+  Plack::Handler::AnyEvent::SCGI: 0.02
+  Plack::Handler::SCGI: 0.02
+  Plack::Middleware::Auth::Digest: 0.04
+  Plack::Middleware::AutoRefresh: 0.08
+  Plack::Middleware::ConsoleLogger: 0.04
+  Plack::Middleware::Debug: 0.14
+  Plack::Middleware::Deflater: 0.05
+  Plack::Middleware::File::Sass: 0.03
+  Plack::Middleware::Header: 0.04
+  Plack::Middleware::JSConcat: 0.29
+  Plack::Middleware::ReverseProxy: 0.11
+  Plack::Middleware::Session: 0.14
+  Plack::Middleware::Status: 1.101150
+  Plack::Middleware::Throttle: 0.01
+  Squatting::On::PSGI: 0.06
+  Starlet: 0.14
+  Starman: 0.3000
+  Test::WWW::Mechanize::PSGI: 0.35
+  Twiggy: 0.1020
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/miyagawa/Task-Plack.git
-version: 0.25
+version: 0.26
