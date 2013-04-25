@@ -2,13 +2,11 @@
 abstract: 'Plack bundle'
 author:
   - 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>'
-build_requires:
-  ExtUtils::MakeMaker: 6.59
+build_requires: {}
 configure_requires:
-  ExtUtils::MakeMaker: 6.59
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
+  Module::Build::Tiny: 0.018
+dynamic_config: 0
+generated_by: 'Dist::Milla version v1.0.2, Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,52 +14,84 @@ meta-spec:
 name: Task-Plack
 no_index:
   directory:
-    - inc
     - t
     - xt
-requires:
-  CGI::Application::PSGI: 1.00
-  CGI::Compile: 0.15
-  CGI::Emulate::PSGI: 0.14
+    - inc
+    - share
+    - eg
+    - examples
+optional_features:
+  catalyst_engine:
+    description: 'Catalyst Engine'
+    recommends:
+      Catalyst::Engine::PSGI: 0.13
+  cgi_application_psgi:
+    description: CGI::Application::PSGI
+    recommends:
+      CGI::Application::PSGI: 1.00
+  extra_middleware_components:
+    description: 'Extra Middleware Components'
+    recommends:
+      Plack::Middleware::AutoRefresh: 0.08
+      Plack::Middleware::File::Sass: 0.03
+      Plack::Middleware::JSConcat: 0.29
+      Plack::Middleware::Status: 1.101150
+      Plack::Middleware::Throttle: 0.01
+  extra_psgi_servers_and_plack_handlers:
+    description: 'Extra PSGI servers and Plack handlers'
+    recommends:
+      Perlbal::Plugin::PSGI: 0.03
+      Plack::Handler::AnyEvent::HTTPD: 0.03
+      Plack::Handler::AnyEvent::ReverseHTTP: 0.04
+      Plack::Handler::AnyEvent::SCGI: 0.02
+      Plack::Handler::SCGI: 0.02
+  in_development_psgi_servers:
+    description: 'In-Development PSGI Servers'
+  mason_psgi_handler:
+    description: 'Mason PSGI handler'
+  maypole_psgi:
+    description: Maypole::PSGI
+  sledge:
+    description: Sledge
+  squatting_on:
+    description: Squatting::On
+    recommends:
+      Squatting::On::PSGI: 0.06
+  stacktrace_with_lexical_variables:
+    description: 'Stacktrace with lexical variables'
+    recommends:
+      Devel::StackTrace::WithLexicals: 0.10
+  tools:
+    description: Tools
+    recommends:
+      Flea: 0.04
+      Test::WWW::Mechanize::PSGI: 0.35
+recommends:
+  CGI::Compile: 0.16
+  CGI::Emulate::PSGI: 0.15
   CGI::PSGI: 0.15
-  Catalyst::Engine::PSGI: 0.13
   Corona: 0.1004
-  Devel::StackTrace::WithLexicals: 0.10
   FCGI: 0.74
   FCGI::Client: 0.08
   FCGI::ProcManager: 0.24
-  Flea: 0.04
   HTTP::Server::Simple::PSGI: 0.14
   IO::Handle::Util: 0.01
-  Net::FastCGI: 0.13
-  POE::Component::Server::PSGI: 0.6
-  PSGI: 1.03
-  Perlbal::Plugin::PSGI: 0.03
-  Plack: 0.9985
-  Plack::App::Proxy: 0.21
-  Plack::Handler::AnyEvent::HTTPD: 0.01
-  Plack::Handler::AnyEvent::ReverseHTTP: 0.04
-  Plack::Handler::AnyEvent::SCGI: 0.02
-  Plack::Handler::SCGI: 0.02
+  Net::FastCGI: 0.14
+  PSGI: 1.101
+  Plack: 1.0023
+  Plack::App::Proxy: 0.27
   Plack::Middleware::Auth::Digest: 0.04
-  Plack::Middleware::AutoRefresh: 0.08
   Plack::Middleware::ConsoleLogger: 0.04
   Plack::Middleware::Debug: 0.14
-  Plack::Middleware::Deflater: 0.05
-  Plack::Middleware::File::Sass: 0.03
+  Plack::Middleware::Deflater: 0.08
   Plack::Middleware::Header: 0.04
-  Plack::Middleware::JSConcat: 0.29
-  Plack::Middleware::ReverseProxy: 0.11
-  Plack::Middleware::Session: 0.14
-  Plack::Middleware::Status: 1.101150
-  Plack::Middleware::Throttle: 0.01
-  Squatting::On::PSGI: 0.06
-  Starlet: 0.14
-  Starman: 0.3000
-  Test::WWW::Mechanize::PSGI: 0.35
-  Twiggy: 0.1020
-  perl: 5.8.1
+  Plack::Middleware::ReverseProxy: 0.15
+  Plack::Middleware::Session: 0.18
+  Starlet: 0.18
+  Starman: 0.3011
+  Twiggy: 0.1021
 resources:
-  license: http://dev.perl.org/licenses/
-  repository: git://github.com/miyagawa/Task-Plack.git
-version: 0.26
+  bugtracker: https://github.com/miyagawa/Task-Plack/issues
+  homepage: https://github.com/miyagawa/Task-Plack
+  repository: https://github.com/miyagawa/Task-Plack.git
+version: 0.27
